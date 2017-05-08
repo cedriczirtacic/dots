@@ -41,10 +41,10 @@ hi Todo       guifg=#8f8f8f gui=italic ctermfg=245
 hi Boolean    guifg=#b1d631 gui=none ctermfg=148
 hi String     guifg=#b1d631 gui=italic ctermfg=150
 hi Identifier guifg=#b1d631 gui=none ctermfg=148
-hi Function   guifg=#ffffff gui=bold ctermfg=255
+hi Function   guifg=#ffffff gui=bold ctermfg=255 cterm=bold
 hi Type       guifg=#7e8aa2 gui=none ctermfg=103
 hi Statement  guifg=#7e8aa2 gui=none ctermfg=103
-hi Keyword    guifg=#ff9800 gui=none ctermfg=208
+hi Keyword    guifg=#ff9800 gui=none ctermfg=208 cterm=bold
 hi Constant   guifg=#ff9800 gui=none  ctermfg=208
 hi Number     guifg=#ff9800 gui=none ctermfg=208
 hi Special    guifg=#ff9800 gui=none ctermfg=208
