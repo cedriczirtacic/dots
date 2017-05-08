@@ -1,3 +1,15 @@
+"let Vundle install some plugins
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Lokaltog/vim-powerline'
+
+call vundle#end()
+
 "much of the stuff was stolen from github.com/evilsocket/dotfiles
 filetype plugin indent on
 syntax on
@@ -87,4 +99,9 @@ function! Check_perl_syntax()
         execute ':!perl -t -c ' . l:f
     endif
 endfunction
+
+"if powerline installed, then show fancy symbols
+if exists('g:Powerline_symbols')
+    let g:Powerline_symbols = 'fancy'
+endif
 
