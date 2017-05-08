@@ -52,6 +52,7 @@ set mouse=a
 
 "256 color terminal
 set t_Co=256
+set t_ut= "clear BCE so bg gets redrawn
 
 "Clear highlighting on escape in normal mode
 nnoremap <esc> :noh<return><esc>
