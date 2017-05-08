@@ -93,7 +93,7 @@ map <C-w> :tabclose<cr>
 nmap <C-D> :!/bin/bash<CR>
 
 "check perl syntax
-map <C-p> :call Check_perl_syntax()<CR>
+nmap <C-p> :call Check_perl_syntax()<CR>
 function! Check_perl_syntax()
     let l:f = @%
     if (&filetype == "perl")
