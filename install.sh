@@ -1,5 +1,5 @@
 #!/bin/bash
-dest="/root"
+[ ! -z $1 ] && dest=$1 || dest=$HOME
 for f in $( find . -maxdepth 1 \! -regex "\(.\|./\(.git\|README.md\|install.sh\)\)" -printf "%f\n" );do
     if [ -e $dest/.$f ];then
         echo "+ file exists, doing a backup of $f"
