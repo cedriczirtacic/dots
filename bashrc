@@ -5,6 +5,13 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+
+_readlink=readlink
+if [[ $(uname -s) == "Darwin" && $( which greadlink) ]];then
+    echo "+ seems to be a Mac OS, using greadlink..."
+    _readlink=greadlink
+fi
+
 alias ls='ls --color=auto'
 alias ll='ls -la --color=auto'
 
@@ -18,7 +25,7 @@ _exit=0
 
 function check_git() {
     #look for .git directory if we inside of a project
-    TPWD=$( readlink -f . )
+    TPWD=$( $_readlink -f . )
     while [[ "$TPWD" != "/" ]];do
         if [ -e "$TPWD/.git" ] ;then
             #get project name
@@ -26,7 +33,7 @@ function check_git() {
             PS1+=" git "$'\342\206\222'" $redfg$project$normalfg"
             return
         fi
-        TPWD=$( readlink -f $TPWD/.. )
+        TPWD=$( $_readlink -f $TPWD/.. )
     done
 }
 function check_outcode() {
