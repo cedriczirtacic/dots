@@ -14,10 +14,13 @@ if [[ $(uname -s) == "Darwin" && $( which greadlink) ]];then
     _readlink=greadlink
     #set the `ls` colors
     export LSCOLORS="exgxcxdxbxegedabagacad"
+
+    #aliases
     alias ls='ls -G'
     alias ll='ls -laG'
 else
 #if Linux
+    #aliases
     alias ls='ls --color=auto'
     alias ll='ls -la --color=auto'
 fi
@@ -47,6 +50,13 @@ function check_outcode() {
     printf "(%d)" $_exit
 }
 
+#create a repo on github.com
+function gh_create() {
+    local repo=$1
+
+    curl -u 'cedriczirtacic' https://api.github.com/user/repos -d "{\"name\":\"$repo\"}";
+    git clone git@github.com:cedriczirtacic/$repo.git
+}
 
 function _prompt() {
     _exit=$?
