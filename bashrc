@@ -6,6 +6,7 @@
 [[ $- != *i* ]] && return
 
 _readlink=readlink
+GITUSER=cedriczirtacic
 
 #if MacOS
 if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
@@ -54,8 +55,8 @@ function check_outcode() {
 function gh_create() {
     local repo=$1
 
-    curl -u 'cedriczirtacic' https://api.github.com/user/repos -d "{\"name\":\"$repo\"}";
-    git clone git@github.com:cedriczirtacic/$repo.git
+    curl -u $GITUSER https://api.github.com/user/repos -d "{\"name\":\"$repo\"}";
+    git clone git@github.com:$GITUSER/$repo.git
 }
 
 function _prompt() {
