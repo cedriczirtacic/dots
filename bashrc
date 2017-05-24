@@ -7,14 +7,20 @@
 
 
 _readlink=readlink
+
+#if MacOS
 if [[ $(uname -s) == "Darwin" && $( which greadlink) ]];then
     echo "+ seems to be a Mac OS, using greadlink..."
     _readlink=greadlink
+    #set the `ls` colors
+    export LSCOLORS="exgxcxdxbxegedabagacad"
+    alias ls='ls -G'
+    alias ll='ls -laG'
+else
+#if Linux
+    alias ls='ls --color=auto'
+    alias ll='ls -la --color=auto'
 fi
-
-alias ls='ls --color=auto'
-alias ll='ls -la --color=auto'
-
 #colors
 normalfg=$'\e[0m'
 redfg=$'\e[38;5;9m'
