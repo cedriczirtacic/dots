@@ -5,11 +5,10 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-
 _readlink=readlink
 
 #if MacOS
-if [[ $(uname -s) == "Darwin" && $( which greadlink) ]];then
+if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
     echo "+ seems to be a Mac OS, using greadlink..."
     _readlink=greadlink
     #set the `ls` colors
@@ -45,6 +44,7 @@ function check_git() {
         TPWD=$( $_readlink -f $TPWD/.. )
     done
 }
+
 function check_outcode() {
     [ $_exit -le 0 ] && return
     printf "(%d)" $_exit
@@ -68,6 +68,5 @@ function _prompt() {
     check_git
     PS1+=" $END_PS1"
 }
-
 
 PROMPT_COMMAND=_prompt
