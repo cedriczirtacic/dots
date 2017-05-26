@@ -23,6 +23,13 @@ else
     #aliases
     alias ls='ls --color=auto'
     alias ll='ls -la --color=auto'
+
+    # if pacman installed then use aliases
+    if which pacman >/dev/null 2>&1 ;then
+        alias pacS='pacman -S'
+        alias pacSi='pacman -S -i'
+        alias pacSs='pacman -S -s -q'
+    fi
 fi
 #colors
 normalfg=$'\e[0m'
