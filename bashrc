@@ -29,6 +29,8 @@ else
         alias pacS='pacman -S'
         alias pacSi='pacman -S -i'
         alias pacSs='pacman -S -s -q'
+        alias pacQi='pacman -Q -i'
+        alias pacQl='pacman -Q -l'
     fi
 fi
 #colors
