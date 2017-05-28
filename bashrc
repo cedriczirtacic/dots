@@ -18,6 +18,10 @@ if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
     #aliases
     alias ls='ls -G'
     alias ll='ls -laG'
+
+    #brew
+    alias brewUg="brew upgrade --cleanup"
+    alias brewUp="brew update -f"
 else
 #if Linux
     #aliases
