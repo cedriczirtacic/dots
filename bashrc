@@ -76,7 +76,11 @@ function gh_create() {
 function _prompt() {
     _exit=$?
 
-    BEGIN_PS1="\u "$'\320\244'" \h"
+    BEGIN_PS1=""
+    if [[ $( uname -s ) == "Darwin" ]];then
+        BEGIN_PS1="${BEGIN_PS1}☠️  "
+    fi
+    BEGIN_PS1="$BEGIN_PS1\u "$'\320\244'" \h"
     END_PS1=$'\312\216'" $purplefg\W\n$(check_outcode)$greenfg\$$normalfg$(tput sgr0) "
     
     PS1="$BEGIN_PS1"
