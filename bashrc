@@ -7,6 +7,7 @@
 
 _readlink=readlink
 GITUSER=cedriczirtacic
+[ -z "$GIT_EDITOR" ] && export GIT_EDITOR=$( which vim )
 
 #if MacOS
 if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
