@@ -81,6 +81,13 @@ function objdumpf() {
     objdump -D $file | perl -ne "if (/<$func>/){print;while(<>){exit if(/^\r*\n$/g);print}}"
 }
 
+# use gdb to disassemble an specific function
+function gdbf() {
+    local file=$1
+    local func=$2
+    gdb -batch -ex "file $file" -ex "disas $func"
+}
+
 function _prompt() {
     _exit=$?
 
