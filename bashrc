@@ -73,6 +73,12 @@ function gh_create() {
     git clone git@github.com:$GITUSER/$repo.git
 }
 
+function objdumpf() {
+    local file=$1
+    local func=$2
+    objdump -d $file | perl -ne "if (/<$func>/){print;while(<>){exit if(/^\r*\n$/g);print}}"
+}
+
 function _prompt() {
     _exit=$?
 
