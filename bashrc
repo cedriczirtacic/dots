@@ -74,6 +74,7 @@ function gh_create() {
     git clone git@github.com:$GITUSER/$repo.git
 }
 
+# use objdump to disassemble an specific function
 function objdumpf() {
     local file=$1
     local func=$2
