@@ -16,5 +16,5 @@ done
 
 if [ ! -e "$dest/.vim/bundle/Vundle.vim" ];then
     git clone https://github.com/VundleVim/Vundle.vim.git $dest/.vim/bundle/Vundle.vim
-    vim +PluginInstall +qall
+    vim +PluginInstall +PluginClean +qall
 fi
