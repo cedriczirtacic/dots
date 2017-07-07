@@ -94,6 +94,16 @@ map <C-n> :tabnew<cr>
 map <C-w> :tabclose<cr>
 nmap <C-D> :!/bin/bash<CR>
 
+"for pasting code already indented
+nnoremap <S-F8> :call Toggle_indent()<cr>
+function! Toggle_indent()
+    if(&paste == "nopaste")
+        setl paste
+    else
+        setl nopaste
+    endif
+endfunction
+
 "check perl syntax
 nmap <C-p> :call Check_perl_syntax()<CR>
 function! Check_perl_syntax()
