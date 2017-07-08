@@ -118,7 +118,7 @@ if exists('g:Powerline_symbols')
     let g:Powerline_symbols = 'fancy'
 endif
 
-
+let g:airline_theme = "bubblegum"
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
