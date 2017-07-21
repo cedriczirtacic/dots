@@ -39,6 +39,9 @@ else
         alias pacR='pacman -R -v'
     fi
 fi
+#alias for both
+alias svim='sudo vim'
+
 #colors
 normalfg=$'\e[0m'
 redfg=$'\e[38;5;9m'
