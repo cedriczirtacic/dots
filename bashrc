@@ -23,6 +23,8 @@ if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
     #brew
     alias brewUg="brew upgrade --cleanup"
     alias brewUp="brew update -f"
+
+    alias updatedb="/usr/libexec/locate.updatedb"
 else
 #if Linux
     #aliases
