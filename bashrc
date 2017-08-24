@@ -93,6 +93,22 @@ function gdbf() {
     gdb -batch -ex "file $file" -ex "disas $func"
 }
 
+# discover hosts using Nmap's ping scan
+function pingdiscover() {
+    local addr=$1
+    local NMAP=$( which nmap )
+    if [ $? -gt 0 ];then
+        echo "- nmap is not present or not in PATH."
+        return 1
+    fi
+
+    if [ -z "$addr" ];then
+        echo "usage: pingdiscover <address>"
+        return 2
+    fi
+    $NMAP -sP -T5 $addr 2>&1 | grep -B1 "Host is up" | grep -v "Nmap done"
+}
+
 function _prompt() {
     _exit=$?
 
