@@ -4,6 +4,7 @@
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+[[ $DISPLAY ]] && shopt -s checkwinsize
 
 _readlink=readlink
 GITUSER=cedriczirtacic

@@ -104,12 +104,16 @@ function! Toggle_indent()
     endif
 endfunction
 
-"check perl syntax
-nmap <C-p> :call Check_perl_syntax()<CR>
-function! Check_perl_syntax()
+"check script syntax
+nmap <C-p> :call Check_script_syntax()<CR>
+function! Check_script_syntax()
     let l:f = @%
     if (&filetype == "perl")
         execute ':!perl -t -c ' . l:f
+    elseif (&filetype == "json")
+        execute ':!json_pp -f json < ' . l:f . ' 1>/dev/null && echo "OK"'
+    else
+        echom 'Unknown &filetype'
     endif
 endfunction
 
