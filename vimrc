@@ -112,6 +112,8 @@ function! Check_script_syntax()
         execute ':!perl -t -c ' . l:f
     elseif (&filetype == "json")
         execute ':!json_pp -f json -t null < ' . l:f . ' && echo "OK"'
+    elseif (&filetype == "ruby")
+        execute ':!ruby -c ' . l:f
     else
         echom 'Unknown &filetype'
     endif
