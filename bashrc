@@ -63,7 +63,7 @@ function check_git() {
             PS1+=" git "$'\342\206\222'" $redfg$project$normalfg"
             return
         fi
-        TPWD=$( $_readlink -f $TPWD/.. )
+        TPWD=$( $_readlink -f "$TPWD/.." )
     done
 }
 
