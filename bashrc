@@ -26,6 +26,12 @@ if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
     alias brewUp="brew update -f"
 
     alias updatedb="/usr/libexec/locate.updatedb"
+    function power_attached() {
+        if [[ `/usr/bin/pmset -g ac 2>&1` != "No adapter attached." ]]
+        then
+            printf "⚡️ "
+        fi
+    }
 else
 #if Linux
     #aliases
@@ -115,7 +121,7 @@ function _prompt() {
 
     BEGIN_PS1=""
     if [[ $( uname -s ) == "Darwin" ]];then
-        BEGIN_PS1="${BEGIN_PS1}☠️  "
+        BEGIN_PS1="${BEGIN_PS1}$(power_attached)"
     fi
     BEGIN_PS1="$BEGIN_PS1\u "$'\320\244'" \h"
     END_PS1=$'\312\216'" $purplefg\W\n$(check_outcode)$greenfg\$$normalfg$(tput sgr0) "
