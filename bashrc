@@ -50,6 +50,7 @@ else
 fi
 #alias for both
 alias svim='sudo vim'
+alias lastcomm='vim <(git show --source HEAD)'
 
 #colors
 normalfg=$'\e[0m'
