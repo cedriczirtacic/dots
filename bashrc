@@ -10,6 +10,10 @@ _readlink=readlink
 GITUSER=cedriczirtacic
 [ -z "$GIT_EDITOR" ] && export GIT_EDITOR=$( which vim )
 
+if which tmux >/dev/null;then
+    echo "TMUX sessions:" && tmux ls;
+fi
+
 #if MacOS
 if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
     echo "+ seems to be a Mac OS, using greadlink..."
