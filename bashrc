@@ -11,7 +11,7 @@ GITUSER=cedriczirtacic
 [ -z "$GIT_EDITOR" ] && export GIT_EDITOR=$( which vim )
 
 # print tmux sessions after login
-if which tmux >/dev/null;then
+if which tmux >/dev/null && [ -z "$TMUX" ];then
     echo "TMUX sessions:" && tmux ls;
 fi
 
