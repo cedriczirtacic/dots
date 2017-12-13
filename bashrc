@@ -54,6 +54,10 @@ else
     fi
 fi
 #alias for both
+if [ -e $(which vi) -a $(which vim) ];then
+    # avoid calling 'vi' if 'vim' installed
+    alias vi='vim'
+fi
 alias svim='sudo vim'
 alias lastcomm='vim <(git show --source HEAD)'
 
