@@ -62,10 +62,10 @@ alias svim='sudo vim'
 alias lastcomm='vim <(git show --source HEAD)'
 
 #colors
-normalfg=$'\e[0m'
-redfg=$'\e[38;5;9m'
-greenfg=$'\e[38;5;40m'
-purplefg=$'\e[38;5;170m'
+normalfg=`tput sgr0`
+redfg=`tput setaf 1`
+greenfg=`tput setaf 2`
+purplefg=`tput setaf 5`
 
 _exit=0
 
@@ -76,7 +76,7 @@ function check_git() {
         if [ -e "$TPWD/.git" ] ;then
             #get project name
             project=$( grep url $TPWD/.git/config | awk -F/ '{print $NF}' )
-            PS1+=" git "$'\342\206\222'" $redfg$project$normalfg"
+            PS1+=" git "$'\342\206\222'" \[$redfg\]$project\[$normalfg\]"
             return
         fi
         TPWD=$( $_readlink -f "$TPWD/.." )
@@ -133,10 +133,12 @@ function _prompt() {
     if [[ $( uname -s ) == "Darwin" ]];then
         BEGIN_PS1="${BEGIN_PS1}$(power_attached)"
     fi
+    # Basic prompt:
+    #BEGIN_PS1="${BEGIN_PS1}"'\W\[$purplefg\] '$'\312\216'' \[$greenfg\]\$\[$normalfg\] '
     BEGIN_PS1="$BEGIN_PS1\u "$'\320\244'" \h"
-    END_PS1=$'\312\216'" $purplefg\W\n$(check_outcode)$greenfg\$$normalfg$(tput sgr0) "
+    END_PS1=$'\312\216'" \[$purplefg\]\W\n$(check_outcode)\[$greenfg\]\$\[$normalfg\] "
     
-    PS1="$BEGIN_PS1"
+    export PS1=$BEGIN_PS1
     check_git
     PS1+=" $END_PS1"
 }
