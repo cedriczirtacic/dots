@@ -75,7 +75,7 @@ function check_git() {
     while [[ "$TPWD" != "/" ]];do
         if [ -f $TPWD/.git/config ];then
             #get project name
-            project=$( grep -E '[\t\s]*url =' $TPWD/.git/config | awk -F'=' '{print $2}' | sed 's/\s*https*:\/\///i' )
+            project=$( grep -E '[\t\s]*url =' $TPWD/.git/config | awk -F'=' '{print $2}' | sed 's/\s*https*:\/\///' )
             if [[ $project != "" ]]; then
                 PS1+=" git "$'\342\206\222'" \[$redfg\]$project\[$normalfg\]"
             fi

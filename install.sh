@@ -1,7 +1,17 @@
 #!/bin/bash
+
+function perror() {
+    echo -e "$1" 1>&2
+}
+
 _find=find
 if [[ $(uname -s) == "Darwin" && $( which gfind) ]];then
-    echo "+ seems to be a Mac OS, using gfind..."
+    which gfind >/dev/null 2>&1
+    if [ $? -gt 0 ];then
+        perror "- install findutil and coreutil\nExiting..."
+        exit 1
+    fi
+    perror "+ seems to be a Mac OS, using gfind..."
     _find=gfind
 fi
 
