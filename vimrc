@@ -148,6 +148,12 @@ let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.notexists = '∄'
 let g:airline_symbols.whitespace = 'Ξ'
 
+" in case of golang, execute gofmt after saving
+aug golang
+    au!
+    au BufWritePost *.go !go fmt -x <afile>
+aug END
+
 " little prank
 "nnoremap <Down> <Left>
 "nnoremap <Up> <Right>
