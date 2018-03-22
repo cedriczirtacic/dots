@@ -84,9 +84,6 @@ function! Smart_TabComplete()
   endif
 endfunction
 
-"recognize golang filetype
-au BufNewFile,BufRead *.go set filetype=go
-
 "mapping
 "Ctrl+H opens hex edit mode
 nnoremap <c-h> :%!xxd<cr>
@@ -114,6 +111,8 @@ function! Check_script_syntax()
         execute ':!json_pp -f json -t null < ' . l:f . ' && echo "OK"'
     elseif (&filetype == "ruby")
         execute ':!ruby -c ' . l:f
+    elseif (&filetype == "go")
+        execute ':!go vet ' . l:f
     else
         echom 'Unknown &filetype'
     endif
@@ -148,9 +147,11 @@ let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.notexists = '∄'
 let g:airline_symbols.whitespace = 'Ξ'
 
-" in case of golang, execute gofmt after saving
 aug golang
     au!
+    "recognize golang filetype
+    au BufNewFile,BufRead *.go set filetype=go
+    "in case of golang, execute gofmt after saving
     au BufWritePost *.go !go fmt -x <afile>
 aug END
 
