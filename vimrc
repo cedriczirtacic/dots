@@ -153,6 +153,7 @@ aug golang
     au BufNewFile,BufRead *.go set filetype=go
     "in case of golang, execute gofmt after saving
     au BufWritePost *.go !go fmt -x <afile>
+    execute ':e %'
 aug END
 
 " little prank
