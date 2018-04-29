@@ -156,6 +156,9 @@ aug golang
     execute ':e %'
 aug END
 
+":W! will do a sudo :w
+cmap W! w !sudo tee %
+
 " little prank
 "nnoremap <Down> <Left>
 "nnoremap <Up> <Right>
