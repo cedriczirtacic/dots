@@ -30,8 +30,10 @@ if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
     alias brewUg="brew upgrade --cleanup"
     alias brewUp="brew update -f"
     
-    #no brew analytics
+    #some homebrew security
     brew analytics off
+    export HOMEBREW_NO_INSECURE_REDIRECT=1
+    export HOMEBREW_CASK_OPTS=--require-sha
 
     alias updatedb="/usr/libexec/locate.updatedb"
     function power_attached() {
