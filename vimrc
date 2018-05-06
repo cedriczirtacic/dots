@@ -66,11 +66,11 @@ inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 function! Smart_TabComplete()
   let line = getline('.')                         " current line
 
-  let substr = strpart(line, -1, col('.'))        " from the start of the current
+  let substr = strpart(line, -1, col('.'))  " from the start of the current
                                                   " line to one character on
                                                   " the cursor
   let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
-  if (strlen(substr)==0)                          " nothing to match on empty string
+  if (strlen(substr)==0)                    " nothing to match on empty string
     return "\<tab>"
   endif
   let has_period = match(substr, '\.') != -1      " position of period, if any
@@ -158,6 +158,11 @@ aug END
 
 ":W! will do a sudo :w
 cmap W! w !sudo tee %
+
+" avoid more than 79 chars
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%79v.\+/
+
 
 " little prank
 "nnoremap <Down> <Left>
