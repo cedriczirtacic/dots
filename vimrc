@@ -162,7 +162,7 @@ cmap W! w !sudo tee %
 " avoid more than 79 chars
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%79v.\+/
-
+set cc=80
 
 " little prank
 "nnoremap <Down> <Left>
