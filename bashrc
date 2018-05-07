@@ -42,6 +42,46 @@ if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
             printf "⚡️ "
         fi
     }
+    function proxy_on {
+        sudo bash -c '
+    networksetup -setsecurewebproxy "wi-fi" 127.0.0.1 8118 && \
+        networksetup -setwebproxy "wi-fi" 127.0.0.1 8118
+    '
+        return $?
+    }
+
+    function proxy_off {
+        sudo bash -c '
+    networksetup -setsecurewebproxystate "Wi-Fi" off && \
+        networksetup -setwebproxystate "Wi-Fi" off
+    '
+        return $?
+    }
+
+    function toggle_proxy {
+        local PRIVOXY_STATUS=$(brew services list | grep -i privoxy | \
+            cut -d' ' -f2)
+        printf "Privoxy status: %s\n" "$PRIVOXY_STATUS"
+        if [[ $PRIVOXY_STATUS != "started" ]];then
+            echo "Start Privoxy before setting up the proxy..."
+            return 1
+        fi
+
+        local PROXY_STATUS=$(networksetup -getwebproxy "Wi-Fi" | \
+            awk '$0~/^Enabled:/{print $2}')
+        case $PROXY_STATUS in
+            "Yes")
+                proxy_off
+                echo "Proxy: OFF"
+                ;;
+            "No")
+                proxy_on
+                echo "Proxy: ON"
+                ;;
+        esac
+        return $?
+    }
+
 else
 #if Linux
     #aliases
@@ -78,7 +118,7 @@ function check_git() {
     #look for .git directory if we inside of a project
     TPWD=$( $_readlink -f . )
     while [[ "$TPWD" != "/" ]];do
-        if [ -f $TPWD/.git/config ];then
+        if [ -f "$TPWD/.git/config" ];then
             #get project name
             project=$( grep -E '[\t\s]*url =' $TPWD/.git/config | awk -F'=' '{print $2}' | sed 's/\s*https*:\/\///' )
             if [[ $project != "" ]]; then
