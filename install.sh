@@ -40,5 +40,18 @@ if ! [ -e "$dest/.vim/bundle/Vundle.vim" ];then
     vim +PluginInstall +PluginClean +qall
 fi
 
+if ! [ -e "./fonts" ];then
+    mkdir fonts && cd fonts
+    if ! which wget >/dev/null;then
+        curl -sL https://github.com/source-foundry/Hack/archive/master.zip \
+            > master.zip
+    else
+        wget -q https://github.com/source-foundry/Hack/archive/master.zip
+    fi
+    unzip -qq master.zip && \
+        rm -f master.zip
+    cd ..
+fi
+
 # load new bash source
 . $dest/.bashrc
