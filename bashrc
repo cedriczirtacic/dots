@@ -30,6 +30,9 @@ if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
     alias brewUg="brew upgrade --cleanup"
     alias brewUp="brew update -f"
     
+    #airport
+    alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/A/Resources/airport"
+
     #some homebrew security
     brew analytics off
     export HOMEBREW_NO_INSECURE_REDIRECT=1
