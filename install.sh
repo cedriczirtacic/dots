@@ -40,5 +40,20 @@ if ! [ -e "$dest/.vim/bundle/Vundle.vim" ];then
     vim +PluginInstall +PluginClean +qall
 fi
 
+# to be used with iTerm2 or Hyper (.ttfs so can be used anywhere if needed) 
+if ! [ -e "./fonts" ];then
+    FONTZIP="https://github.com/source-foundry/Hack/archive/master.zip"
+    mkdir fonts && cd fonts
+    if ! which wget >/dev/null;then
+        curl -sL $FONTZIP \
+            > master.zip
+    else
+        wget -q $FONTZIP
+    fi
+    unzip -qq master.zip && \
+        rm -f master.zip
+    cd ..
+fi
+
 # load new bash source
 . $dest/.bashrc
