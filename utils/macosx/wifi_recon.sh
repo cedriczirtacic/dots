@@ -18,8 +18,12 @@ tshark -Q -l -i en0 -Y "bootp.option.type == 53" -T fields -e bootp.option.hostn
 | grep --line-buffered -v '^,' | sed -l "s/,/ (/; s/$/)/" \
 | while IFS= read -r l; do
     [ ! -e "$RECONDB" ] && touch $RECONDB;
+    NOW=`date +"%Y-%m-%d.%H:%M:%S"`
     if ! grep -q -o "$l" $RECONDB;then
-        echo "$l" >> $RECONDB;
+        echo "$l $NOW" >> $RECONDB;
+    else
+        # update date
+        sed -ie "s/^\($l\) .*$/\1 $NOW/g" $RECONDB
     fi
     SSID=$( $AIRPORT -I | grep -E '^\s*SSID:' |sed -E 's/[^:]+: (.*)$/\1/' )
     terminal-notifier -ignoreDnD -appIcon https://i.imgur.com/LSVs3i3.png -title "New Device joined ${SSID}" -message "$l" > /dev/null
