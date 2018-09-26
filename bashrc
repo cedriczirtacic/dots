@@ -1,6 +1,8 @@
 #
 # ~/.bashrc
 #
+# Some things stolen from:
+#   * https://github.com/cbodden/dotfiles
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -118,6 +120,7 @@ else
         alias pacR='pacman -R -v'
     fi
 fi
+
 #aliases for both
 alias nmap-shodan="nmap -sn -Pn -n --script=shodan-api --script-args \"shodan-api.apikey=$SHODAN_API_KEY\""
 if [ -e $(which vi) -a $(which vim) ];then
@@ -126,6 +129,11 @@ if [ -e $(which vi) -a $(which vim) ];then
 fi
 alias svim='sudo vim'
 alias lastcomm='vim <(git show --source HEAD)'
+alias gitlog='git log --graph --pretty=format:'\''%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\'' --abbrev-commit'
+
+#history variables
+export HISTCONTROL="ignoreboth"
+export HISTTIMEFORMAT="%s"
 
 #colors
 normalfg=`tput sgr0`
@@ -194,7 +202,6 @@ function pingdiscover() {
     $NMAP -sP -T5 $addr 2>&1 | grep -B1 "Host is up" | grep -v "Nmap done"
 }
 
-# stolen from https://github.com/cbodden/dotfiles/blob/master/shells/.zshrc#L194-L205
 function man() {
     env \
         LESS_TERMCAP_mb=$(printf $purplefg) \
