@@ -6,19 +6,36 @@
 [[ $- != *i* ]] && return
 [[ $DISPLAY ]] && shopt -s checkwinsize
 
+APIKEYS="${HOME}/.apikeys"
 _readlink=readlink
 GITUSER=cedriczirtacic
+
 [ -z "$GIT_EDITOR" ] && export GIT_EDITOR=$( which vim )
 
+# Check for API Keys source
+if [ -f "$APIKEYS" ]; then
+    source $APIKEYS
+else
+    printf 'API keys file not found (path: %s)\n' "$APIKEYS" 1>&2
+fi
+
 # print tmux sessions after login
-if which tmux >/dev/null && [ -z "$TMUX" ];then
+if which tmux >/dev/null && [ -n "$TMUX" ];then
     echo "TMUX sessions:" && tmux ls;
 fi
 
 #if MacOS
 if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
-    echo "+ seems to be a Mac OS, using greadlink..."
+    #echo "+ seems to be a Mac OS, using greadlink..."
     _readlink=greadlink
+    
+    #if openssl installed with brew then export needed LD/CPP flags
+    brew info openssl|grep -iE "^Not installed" >/dev/null
+    if [ $? -eq 1 ];then
+        export LDFLAGS=-L/usr/local/opt/openssl/lib
+        export CPPFLAGS=-I/usr/local/opt/openssl/include
+    fi
+
     #set the `ls` colors
     export LSCOLORS="exgxcxdxbxegedabagacad"
 
@@ -38,7 +55,7 @@ if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
     export HOMEBREW_NO_INSECURE_REDIRECT=1
     export HOMEBREW_CASK_OPTS=--require-sha
 
-    alias updatedb="/usr/libexec/locate.updatedb"
+    alias updatedb="sudo /usr/libexec/locate.updatedb"
     function power_attached() {
         if [[ `/usr/bin/pmset -g ac 2>&1` != "No adapter attached." ]]
         then
@@ -101,7 +118,8 @@ else
         alias pacR='pacman -R -v'
     fi
 fi
-#alias for both
+#aliases for both
+alias nmap-shodan="nmap -sn -Pn -n --script=shodan-api --script-args \"shodan-api.apikey=$SHODAN_API_KEY\""
 if [ -e $(which vi) -a $(which vim) ];then
     # avoid calling 'vi' if 'vim' installed
     alias vi='vim'
