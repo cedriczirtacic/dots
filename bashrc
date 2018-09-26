@@ -194,6 +194,19 @@ function pingdiscover() {
     $NMAP -sP -T5 $addr 2>&1 | grep -B1 "Host is up" | grep -v "Nmap done"
 }
 
+# stolen from https://github.com/cbodden/dotfiles/blob/master/shells/.zshrc#L194-L205
+function man() {
+    env \
+        LESS_TERMCAP_mb=$(printf $purplefg) \
+        LESS_TERMCAP_md=$(printf $purplefg) \
+        LESS_TERMCAP_me=$(printf "\e[0m") \
+        LESS_TERMCAP_se=$(printf "\e[0m") \
+        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+        LESS_TERMCAP_ue=$(printf "\e[0m") \
+        LESS_TERMCAP_us=$(printf "\e[1;32m") \
+            man "$@"
+}
+
 function _prompt() {
     _exit=$?
 
@@ -210,5 +223,4 @@ function _prompt() {
     check_git
     PS1+=" $END_PS1"
 }
-
 PROMPT_COMMAND=_prompt
