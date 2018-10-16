@@ -118,6 +118,10 @@ function! Check_script_syntax()
     endif
 endfunction
 
+function! Clear_oneline_comments()
+    execute ':g/^[ \n\t]*\(#\|\/\/\).*/d'
+endfunction
+
 "if powerline installed, then show fancy symbols
 if exists('g:Powerline_symbols')
     let g:Powerline_symbols = 'fancy'

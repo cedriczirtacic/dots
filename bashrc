@@ -32,8 +32,9 @@ if [[ $(uname -s) == "Darwin" && $(which greadlink) ]];then
     _readlink=greadlink
     
     #if openssl installed with brew then export needed LD/CPP flags
-    brew info openssl|grep -iE "^Not installed" >/dev/null
-    if [ $? -eq 1 ];then
+    #brew list openssl >/dev/null
+    #if [ $? -eq 1 ];then
+    if [ -e /usr/local/opt/openssl/lib -a /usr/local/opt/openssl/include ];then
         export LDFLAGS=-L/usr/local/opt/openssl/lib
         export CPPFLAGS=-I/usr/local/opt/openssl/include
     fi
@@ -214,6 +215,22 @@ function man() {
             man "$@"
 }
 
+function random_fact() {
+    curl -s randomfunfacts.com | grep '<strong>' \
+        | sed -Ee 's/^.+<i>(.+)<\/i>.+$/\1/g'
+    return $?
+}
+
+function _basic_prompt() {
+    if [[ $( id -u ) == 0 ]]; then
+        export PS1="# "
+    else
+        export PS1="\$ "
+    fi
+    
+    PROMPT_COMMAND=_basic_prompt
+}
+
 function _prompt() {
     _exit=$?
 
@@ -222,12 +239,15 @@ function _prompt() {
         BEGIN_PS1="${BEGIN_PS1}$(power_attached)"
     fi
     # Basic prompt:
-    #BEGIN_PS1="${BEGIN_PS1}"'\W\[$purplefg\] '$'\312\216'' \[$greenfg\]\$\[$normalfg\] '
     BEGIN_PS1="$BEGIN_PS1\u "$'\320\244'" \h"
     END_PS1=$'\312\216'" \[$purplefg\]\W\n$(check_outcode)\[$greenfg\]\$\[$normalfg\] "
     
     export PS1=$BEGIN_PS1
     check_git
     PS1+=" $END_PS1"
+    PROMPT_COMMAND=_prompt
 }
 PROMPT_COMMAND=_prompt
+
+#random fact for this session
+#random_fact
